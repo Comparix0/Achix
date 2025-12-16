@@ -1,1 +1,1 @@
-# Achix.io
+# Achix
