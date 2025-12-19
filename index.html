@@ -82,17 +82,12 @@
       cursor: pointer;
       font-size: 0.85rem;
       background: #fff;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      transition: transform 0.12s ease;
     }
 
     .filter.active {
       background: var(--primary);
       color: #fff;
-    }
-
-    .filter:active {
-      transform: scale(0.96);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
     .search-box button {
@@ -169,7 +164,7 @@
 <header>
   <h1>ACHIX</h1>
   <div class="subtitle">
-    Encontre ofertas reais da Shopee com filtros inteligentes e escolha mais rápido
+    Busque produtos com inteligência e encontre ofertas reais na Shopee
   </div>
 </header>
 
@@ -178,12 +173,12 @@
   <div class="search-box">
     <input type="text" id="searchInput" placeholder="Digite o nome do produto (ex: Relógio Patek Philippe)" />
 
-    <div class="filters" id="filters">
-      <div class="filter" data-sort="relevancy">Relevância</div>
-      <div class="filter" data-sort="rating">Melhores avaliados</div>
-      <div class="filter" data-sort="sales">Mais vendidos</div>
-      <div class="filter" data-sort="price_asc">Menor preço</div>
-      <div class="filter" data-sort="price_desc">Maior preço</div>
+    <div class="filters">
+      <div class="filter">Relevância</div>
+      <div class="filter">Melhores avaliados</div>
+      <div class="filter">Mais vendidos</div>
+      <div class="filter">Menor preço</div>
+      <div class="filter">Maior preço</div>
     </div>
 
     <button id="searchBtn">Buscar na Shopee</button>
@@ -192,65 +187,40 @@
   <h2 class="section-title">Principais Categorias</h2>
 
   <div class="niches">
-    <div class="niche" onclick="goNiche('Relógios')">⌚<span>Relógios</span></div>
-    <div class="niche" onclick="goNiche('Eletrônicos')">📱<span>Eletrônicos</span></div>
-    <div class="niche" onclick="goNiche('Casa e Utilidades')">🏠<span>Casa & Utilidades</span></div>
-    <div class="niche" onclick="goNiche('Beleza')">💄<span>Beleza</span></div>
-    <div class="niche" onclick="goNiche('Moda Masculina')">👔<span>Moda Masculina</span></div>
-    <div class="niche" onclick="goNiche('Moda Feminina')">👗<span>Moda Feminina</span></div>
-    <div class="niche" onclick="goNiche('Ofertas do Dia')">🔥<span>Ofertas</span></div>
-    <div class="niche" onclick="goNiche('Mais Vendidos')">⭐<span>Mais Vendidos</span></div>
+    <div class="niche">⌚<span>Relógios</span></div>
+    <div class="niche">📱<span>Eletrônicos</span></div>
+    <div class="niche">🏠<span>Casa & Utilidades</span></div>
+    <div class="niche">💄<span>Beleza</span></div>
+    <div class="niche">👔<span>Moda Masculina</span></div>
+    <div class="niche">👗<span>Moda Feminina</span></div>
+    <div class="niche">🔥<span>Ofertas</span></div>
+    <div class="niche">⭐<span>Mais Vendidos</span></div>
   </div>
 
 </div>
 
 <footer>
-  <h3>Busque com inteligência</h3>
+  <h3>Compre com mais clareza</h3>
   <p>
-    O Achix é um buscador independente que direciona você para ofertas reais da Shopee,
-    usando filtros inteligentes para facilitar sua escolha e economizar tempo.
+    O Achix é um buscador independente que leva você diretamente para a Shopee,
+    já com acesso a ofertas reais, avaliações e oportunidades confiáveis.
   </p>
 </footer>
 
 <script>
-  const searchInput = document.getElementById('searchInput');
-  const searchBtn = document.getElementById('searchBtn');
-  const filters = document.querySelectorAll('.filter');
+  const searchBtn = document.getElementById("searchBtn");
 
-  let selectedFilter = null;
+  const affiliateLink = "https://s.shopee.com.br/qcZiYzZSy";
 
-  filters.forEach(filter => {
-    filter.addEventListener('click', () => {
-      filters.forEach(f => f.classList.remove('active'));
-      filter.classList.add('active');
-      selectedFilter = filter.dataset.sort;
-      validate();
+  searchBtn.addEventListener("click", () => {
+    window.open(affiliateLink, "_blank");
+  });
+
+  document.querySelectorAll(".niche").forEach(niche => {
+    niche.addEventListener("click", () => {
+      window.open(affiliateLink, "_blank");
     });
   });
-
-  searchInput.addEventListener('input', validate);
-
-  function validate() {
-    if (searchInput.value.trim() !== '' && selectedFilter) {
-      searchBtn.classList.add('enabled');
-    } else {
-      searchBtn.classList.remove('enabled');
-    }
-  }
-
-  searchBtn.addEventListener('click', () => {
-    if (!searchBtn.classList.contains('enabled')) return;
-
-    const q = encodeURIComponent(searchInput.value.trim());
-    const url = `https://shopee.com.br/search?keyword=${q}&sortBy=${selectedFilter}&affiliateId=18352050218`;
-    window.open(url, '_blank');
-  });
-
-  function goNiche(niche) {
-    const q = encodeURIComponent(niche);
-    const url = `https://shopee.com.br/search?keyword=${q}&sortBy=relevancy&affiliateId=18352050218`;
-    window.open(url, '_blank');
-  }
 </script>
 
 </body>
