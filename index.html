@@ -1,181 +1,264 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Achix – Seu Buscador Digital</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achix — Busque ofertas reais antes de comprar</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  background: #F5F5F5;
-  color: #333;
-}
+  <style>
+    :root {
+      --primary: #ee4d2d;
+      --bg: #f6f6f6;
+      --text: #333;
+      --muted: #777;
+      --card: #ffffff;
+    }
 
-.container {
-  max-width: 420px;
-  margin: auto;
-  padding: 20px;
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.logo {
-  text-align: center;
-  font-size: 26px;
-  font-weight: 700;
-  color: #EE4D2D;
-  margin-bottom: 5px;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
 
-.subtitle {
-  text-align: center;
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 25px;
-}
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-input {
-  width: 100%;
-  padding: 14px;
-  font-size: 15px;
-  border-radius: 8px;
-  border: 1px solid #DDD;
-  outline: none;
-}
+    header h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
 
-input:focus {
-  border-color: #EE4D2D;
-}
+    .subtitle {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
 
-.filters {
-  display: flex;
-  gap: 8px;
-  margin: 20px 0;
-}
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
 
-.filter {
-  flex: 1;
-  padding: 10px;
-  font-size: 13px;
-  border-radius: 6px;
-  border: 1px solid #DDD;
-  background: #FFF;
-  text-align: center;
-  cursor: pointer;
-}
+    .search-box {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 20px;
+    }
 
-.filter.active {
-  background: #EE4D2D;
-  color: #FFF;
-  border-color: #EE4D2D;
-}
+    .search-box input {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
 
-button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-  background: #CCC;
-  color: #666;
-  cursor: not-allowed;
-}
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
 
-button.enabled {
-  background: #EE4D2D;
-  color: #FFF;
-  cursor: pointer;
-}
+    .filter {
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 0.85rem;
+      background: #fff;
+      transition: transform 0.12s ease;
+    }
 
-.niches {
-  margin-top: 30px;
-}
+    .filter.active {
+      background: var(--primary);
+      color: #fff;
+    }
 
-.niches h3 {
-  font-size: 15px;
-  margin-bottom: 10px;
-}
+    .search-box button {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      opacity: 0.5;
+    }
 
-.niche {
-  background: #FFF;
-  border: 1px solid #DDD;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  margin-bottom: 8px;
-  cursor: pointer;
-}
-</style>
+    .search-box button.enabled {
+      opacity: 1;
+    }
+
+    h2.section-title {
+      margin: 30px 0 15px;
+      font-size: 1.2rem;
+    }
+
+    .niches {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+    }
+
+    .niche {
+      background: var(--card);
+      padding: 20px 10px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .niche:hover {
+      transform: translateY(-4px);
+    }
+
+    .niche span {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #fff;
+      margin-top: 40px;
+      padding: 25px 20px;
+      text-align: center;
+      border-top: 1px solid #ddd;
+    }
+
+    footer h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: auto;
+    }
+  </style>
 </head>
-
 <body>
 
+<header>
+  <h1>ACHIX</h1>
+  <div class="subtitle">
+    Busque produtos com inteligência e encontre ofertas reais na Shopee
+  </div>
+</header>
+
 <div class="container">
-  <div class="logo">Achix</div>
-  <div class="subtitle">Seu buscador digital de produtos Shopee</div>
 
-  <input 
-    type="text" 
-    id="searchInput" 
-    placeholder="Digite o produto que você procura"
-  >
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Digite o nome do produto (ex: Relógio Patek Philippe)" />
 
-  <div class="filters">
-    <div class="filter">Mais vendidos</div>
-    <div class="filter">Menor preço</div>
-    <div class="filter">Melhor avaliado</div>
+    <div class="filters">
+      <div class="filter">Relevância</div>
+      <div class="filter">Melhores avaliados</div>
+      <div class="filter">Mais vendidos</div>
+      <div class="filter">Menor preço</div>
+      <div class="filter">Maior preço</div>
+    </div>
+
+    <button id="searchBtn">Buscar na Shopee</button>
   </div>
 
-  <button id="searchBtn" disabled>Buscar na Shopee</button>
+  <h2 class="section-title">Principais Categorias</h2>
 
   <div class="niches">
-    <h3>Nichos em alta</h3>
-    <div class="niche">Eletrônicos</div>
-    <div class="niche">Casa & Cozinha</div>
-    <div class="niche">Beleza</div>
-    <div class="niche">Ferramentas</div>
+    <div class="niche">⌚<span>Relógios</span></div>
+    <div class="niche">📱<span>Eletrônicos</span></div>
+    <div class="niche">🏠<span>Casa & Utilidades</span></div>
+    <div class="niche">💄<span>Beleza</span></div>
+    <div class="niche">👔<span>Moda Masculina</span></div>
+    <div class="niche">👗<span>Moda Feminina</span></div>
+    <div class="niche">🔥<span>Ofertas</span></div>
+    <div class="niche">⭐<span>Mais Vendidos</span></div>
   </div>
+
 </div>
 
+<footer>
+  <h3>Compre com mais clareza</h3>
+  <p>
+    O Achix é um buscador independente que leva você diretamente para a Shopee,
+    economizando tempo e facilitando decisões inteligentes.
+  </p>
+</footer>
+
 <script>
-const input = document.getElementById("searchInput");
-const btn = document.getElementById("searchBtn");
-const filters = document.querySelectorAll(".filter");
-const niches = document.querySelectorAll(".niche");
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
+  const filters = document.querySelectorAll(".filter");
+  const niches = document.querySelectorAll(".niche");
 
-const affiliateLink = "https://s.shopee.com.br/qcZiYzZSy";
-let filterSelected = false;
+  const affiliateLink = "https://s.shopee.com.br/qcZiYzZSy";
 
-filters.forEach(f => {
-  f.addEventListener("click", () => {
-    filters.forEach(x => x.classList.remove("active"));
-    f.classList.add("active");
-    filterSelected = true;
-    validate();
+  let selectedFilter = "";
+
+  filters.forEach(filter => {
+    filter.addEventListener("click", () => {
+      filters.forEach(f => f.classList.remove("active"));
+      filter.classList.add("active");
+      selectedFilter = filter.innerText;
+      validate();
+    });
   });
-});
 
-input.addEventListener("input", validate);
+  searchInput.addEventListener("input", validate);
 
-function validate() {
-  if (input.value.trim() !== "" && filterSelected) {
-    btn.classList.add("enabled");
-    btn.disabled = false;
-  } else {
-    btn.classList.remove("enabled");
-    btn.disabled = true;
+  function validate() {
+    if (searchInput.value.trim() !== "" && selectedFilter !== "") {
+      searchBtn.classList.add("enabled");
+    } else {
+      searchBtn.classList.remove("enabled");
+    }
   }
-}
 
-btn.addEventListener("click", () => {
-  window.open(affiliateLink, "_blank");
-});
+  searchBtn.addEventListener("click", () => {
+    if (!searchBtn.classList.contains("enabled")) return;
 
-niches.forEach(n => {
-  n.addEventListener("click", () => {
+    const query = encodeURIComponent(searchInput.value.trim());
+    const searchUrl = "https://shopee.com.br/search?keyword=" + query;
+
     window.open(affiliateLink, "_blank");
+    setTimeout(() => {
+      window.open(searchUrl, "_blank");
+    }, 500);
   });
-});
+
+  niches.forEach(niche => {
+    niche.addEventListener("click", () => {
+      const query = encodeURIComponent(niche.innerText);
+      const searchUrl = "https://shopee.com.br/search?keyword=" + query;
+
+      window.open(affiliateLink, "_blank");
+      setTimeout(() => {
+        window.open(searchUrl, "_blank");
+      }, 500);
+    });
+  });
 </script>
 
 </body>
