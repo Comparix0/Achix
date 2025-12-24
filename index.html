@@ -1,50 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achix – Busca Inteligente Shopee</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f1221;
+  color: #fff;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+p {
+  text-align: center;
+  font-size: 14px;
+  color: #cfcfcf;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.filter {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter.active {
+  background: #ff5c00;
+  border-color: #ff5c00;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background: #444;
+  color: #999;
+  cursor: not-allowed;
+}
+
+button.enabled {
+  background: #ff5c00;
+  color: #fff;
+  cursor: pointer;
+}
+
+.niches {
+  margin-top: 30px;
+}
+
+.niches h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.niche {
+  background: #1a1d33;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Achix</h1>
+  <p>Encontre oportunidades inteligentes na Shopee</p>
+
+  <input 
+    type="text" 
+    id="searchInput" 
+    placeholder="Digite o nome do produto"
+  >
+
+  <div class="filters">
+    <div class="filter">Mais vendidos</div>
+    <div class="filter">Menor preço</div>
+    <div class="filter">Melhor avaliado</div>
+  </div>
+
+  <button id="searchBtn" disabled>Buscar oportunidades</button>
+
+  <div class="niches">
+    <h3>Nichos em alta</h3>
+    <div class="niche">Eletrônicos</div>
+    <div class="niche">Casa & Cozinha</div>
+    <div class="niche">Beleza</div>
+    <div class="niche">Ferramentas</div>
+  </div>
+</div>
+
 <script>
-  const searchInput = document.getElementById("searchInput");
-  const searchBtn = document.getElementById("searchBtn");
-  const filters = document.querySelectorAll(".filter");
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const filters = document.querySelectorAll(".filter");
+const niches = document.querySelectorAll(".niche");
 
-  const affiliateLink = "https://s.shopee.com.br/qcZiYzZSy";
+const affiliateLink = "https://s.shopee.com.br/qcZiYzZSy";
 
-  let selectedFilter = null;
+let selectedFilter = null;
 
-  // Clique nos filtros
-  filters.forEach(filter => {
-    filter.addEventListener("click", () => {
-      filters.forEach(f => f.classList.remove("active"));
-      filter.classList.add("active");
-      selectedFilter = filter.innerText;
-      validate();
-    });
+// Seleção de filtro
+filters.forEach(filter => {
+  filter.addEventListener("click", () => {
+    filters.forEach(f => f.classList.remove("active"));
+    filter.classList.add("active");
+    selectedFilter = filter.innerText;
+    validate();
   });
+});
 
-  // Digitação no campo
-  searchInput.addEventListener("input", validate);
+// Digitação
+searchInput.addEventListener("input", validate);
 
-  function validate() {
-    if (searchInput.value.trim() !== "" && selectedFilter) {
-      searchBtn.classList.add("enabled");
-      searchBtn.disabled = false;
-    } else {
-      searchBtn.classList.remove("enabled");
-      searchBtn.disabled = true;
-    }
+function validate() {
+  if (searchInput.value.trim() !== "" && selectedFilter) {
+    searchBtn.classList.add("enabled");
+    searchBtn.disabled = false;
+  } else {
+    searchBtn.classList.remove("enabled");
+    searchBtn.disabled = true;
   }
+}
 
-  // Clique no botão
-  searchBtn.addEventListener("click", () => {
-    if (!searchBtn.classList.contains("enabled")) return;
+// Clique no botão
+searchBtn.addEventListener("click", () => {
+  if (!searchBtn.classList.contains("enabled")) return;
+  window.open(affiliateLink, "_blank");
+});
 
-    // Aqui é proposital: abre o afiliado
+// Nichos
+niches.forEach(niche => {
+  niche.addEventListener("click", () => {
     window.open(affiliateLink, "_blank");
   });
-
-  // Nichos
-  document.querySelectorAll(".niche").forEach(niche => {
-    niche.addEventListener("click", () => {
-      window.open(affiliateLink, "_blank");
-    });
-  });
-
-  // Estado inicial
-  searchBtn.disabled = true;
+});
 </script>
+
+</body>
+</html>
