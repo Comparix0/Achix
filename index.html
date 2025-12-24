@@ -3,62 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Achix – Busca Inteligente Shopee</title>
+<title>Achix – Seu Buscador Digital</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f1221;
-  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #F5F5F5;
+  color: #333;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 420px;
   margin: auto;
   padding: 20px;
 }
 
-h1 {
+.logo {
   text-align: center;
-  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #EE4D2D;
+  margin-bottom: 5px;
 }
 
-p {
+.subtitle {
   text-align: center;
   font-size: 14px;
-  color: #cfcfcf;
+  color: #777;
+  margin-bottom: 25px;
 }
 
 input {
   width: 100%;
   padding: 14px;
+  font-size: 15px;
   border-radius: 8px;
-  border: none;
-  font-size: 16px;
-  margin-top: 15px;
+  border: 1px solid #DDD;
+  outline: none;
+}
+
+input:focus {
+  border-color: #EE4D2D;
 }
 
 .filters {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   margin: 20px 0;
 }
 
 .filter {
   flex: 1;
-  margin: 0 5px;
   padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #555;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #DDD;
+  background: #FFF;
   text-align: center;
   cursor: pointer;
-  font-size: 14px;
 }
 
 .filter.active {
-  background: #ff5c00;
-  border-color: #ff5c00;
+  background: #EE4D2D;
+  color: #FFF;
+  border-color: #EE4D2D;
 }
 
 button {
@@ -67,14 +76,14 @@ button {
   border-radius: 8px;
   border: none;
   font-size: 16px;
-  background: #444;
-  color: #999;
+  background: #CCC;
+  color: #666;
   cursor: not-allowed;
 }
 
 button.enabled {
-  background: #ff5c00;
-  color: #fff;
+  background: #EE4D2D;
+  color: #FFF;
   cursor: pointer;
 }
 
@@ -83,18 +92,18 @@ button.enabled {
 }
 
 .niches h3 {
-  text-align: center;
+  font-size: 15px;
   margin-bottom: 10px;
 }
 
 .niche {
-  background: #1a1d33;
+  background: #FFF;
+  border: 1px solid #DDD;
   padding: 12px;
   border-radius: 8px;
-  text-align: center;
-  margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 8px;
   cursor: pointer;
-  font-size: 15px;
 }
 </style>
 </head>
@@ -102,13 +111,13 @@ button.enabled {
 <body>
 
 <div class="container">
-  <h1>Achix</h1>
-  <p>Encontre oportunidades inteligentes na Shopee</p>
+  <div class="logo">Achix</div>
+  <div class="subtitle">Seu buscador digital de produtos Shopee</div>
 
   <input 
     type="text" 
     id="searchInput" 
-    placeholder="Digite o nome do produto"
+    placeholder="Digite o produto que você procura"
   >
 
   <div class="filters">
@@ -117,7 +126,7 @@ button.enabled {
     <div class="filter">Melhor avaliado</div>
   </div>
 
-  <button id="searchBtn" disabled>Buscar oportunidades</button>
+  <button id="searchBtn" disabled>Buscar na Shopee</button>
 
   <div class="niches">
     <h3>Nichos em alta</h3>
@@ -129,47 +138,41 @@ button.enabled {
 </div>
 
 <script>
-const searchInput = document.getElementById("searchInput");
-const searchBtn = document.getElementById("searchBtn");
+const input = document.getElementById("searchInput");
+const btn = document.getElementById("searchBtn");
 const filters = document.querySelectorAll(".filter");
 const niches = document.querySelectorAll(".niche");
 
 const affiliateLink = "https://s.shopee.com.br/qcZiYzZSy";
+let filterSelected = false;
 
-let selectedFilter = null;
-
-// Seleção de filtro
-filters.forEach(filter => {
-  filter.addEventListener("click", () => {
-    filters.forEach(f => f.classList.remove("active"));
-    filter.classList.add("active");
-    selectedFilter = filter.innerText;
+filters.forEach(f => {
+  f.addEventListener("click", () => {
+    filters.forEach(x => x.classList.remove("active"));
+    f.classList.add("active");
+    filterSelected = true;
     validate();
   });
 });
 
-// Digitação
-searchInput.addEventListener("input", validate);
+input.addEventListener("input", validate);
 
 function validate() {
-  if (searchInput.value.trim() !== "" && selectedFilter) {
-    searchBtn.classList.add("enabled");
-    searchBtn.disabled = false;
+  if (input.value.trim() !== "" && filterSelected) {
+    btn.classList.add("enabled");
+    btn.disabled = false;
   } else {
-    searchBtn.classList.remove("enabled");
-    searchBtn.disabled = true;
+    btn.classList.remove("enabled");
+    btn.disabled = true;
   }
 }
 
-// Clique no botão
-searchBtn.addEventListener("click", () => {
-  if (!searchBtn.classList.contains("enabled")) return;
+btn.addEventListener("click", () => {
   window.open(affiliateLink, "_blank");
 });
 
-// Nichos
-niches.forEach(niche => {
-  niche.addEventListener("click", () => {
+niches.forEach(n => {
+  n.addEventListener("click", () => {
     window.open(affiliateLink, "_blank");
   });
 });
